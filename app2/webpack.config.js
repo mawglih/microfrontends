@@ -1,4 +1,5 @@
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     mode: 'development',
     devServer: {
@@ -6,11 +7,15 @@ module.exports = {
     },
     plugins: [
         new ModuleFederationPlugin({
-            name: 'app1',
+            name: 'app2',
             filename: 'remoteEntry.js',
             exposes: {
-                './App2Index': './src/index',
+                './App2Index': './src/bootstrap',
             },
+            shared: [ 'faker'],
         }),
+        new HtmlWebpackPlugin({
+            template: './public/index.html',
+        })
     ],
 };
